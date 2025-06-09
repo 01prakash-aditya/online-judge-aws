@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import OAuth from "../components/OAuth.jsx";
 
+const MAIN_API_BASE_URL = 'http://13.60.248.255:3000';
+
 export default function SignUp() {
   const [formData, setFormData] = useState({
     role: 'user' // Default role
@@ -40,7 +42,7 @@ export default function SignUp() {
       setLoading(true);
       setError(false);
       
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch(`${MAIN_API_BASE_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUserSuccess, updateUserStart, updateUserFailure, deleteUserFailure, deleteUserSuccess, deleteUserStart, SignOut } from '../redux/user/userSlice.js';
 
+const MAIN_API_BASE_URL = 'http://13.60.248.255:3000';
+
 export default function Profile() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
@@ -57,7 +59,7 @@ export default function Profile() {
     if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       try{
         dispatch(deleteUserStart());
-        const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        const res = await fetch(`${MAIN_API_BASE_URL}/api/user/delete/${currentUser._id}`, {
           method: 'DELETE',
           credentials: 'include', 
         });
@@ -74,7 +76,7 @@ export default function Profile() {
 
   const handleSignOut = async () => {
     try {
-      await fetch('/api/auth/signout', {
+      await fetch(`${MAIN_API_BASE_URL}/api/auth/signout`, {
         credentials: 'include' 
       });
       dispatch(SignOut());

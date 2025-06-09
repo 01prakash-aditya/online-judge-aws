@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { compileAndRun } from '../services/api.js';
 import { updateUserSuccess } from '../redux/user/userSlice.js';
 
+const API_BASE_URL = 'http://13.60.248.255:8000';
+const MAIN_API_BASE_URL = 'http://13.60.248.255:3000';
+
 export default function Compiler() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
@@ -69,7 +72,7 @@ export default function Compiler() {
     const fetchSolvedProblems = async () => {
       if (currentUser) {
         try {
-          const response = await fetch('/api/user/solved-problems', {
+          const response = await fetch(`${MAIN_API_BASE_URL}/api/user/solved-problems`, {
             credentials: 'include'
           });
           const data = await response.json();
@@ -239,7 +242,7 @@ export default function Compiler() {
     setStatusMessage('Getting AI review...');
     
     try {
-      const response = await fetch('http://localhost:8000/ai-review', {
+      const response = await fetch(`${API_BASE_URL}/ai-review`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -279,7 +282,7 @@ export default function Compiler() {
     setReviewType('chat');
     
     try {
-      const response = await fetch('http://localhost:8000/chat-bot', {
+      const response = await fetch(`${API_BASE_URL}/chat-bot`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
